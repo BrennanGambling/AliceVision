@@ -201,14 +201,16 @@ public:
     void generateTextures(const mvsUtils::MultiViewParams& mp,
                           const bfs::path &outPath,
                           size_t memoryAvailable,
-                          image::EImageFileType textureFileType = image::EImageFileType::PNG);
+                          image::EImageFileType textureFileType = image::EImageFileType::PNG,
+                          mvsUtils::EFileType imageType=mvsUtils::EFileType::none);
 
     /// Generate texture files for the given sub-set of texture atlases
     void generateTexturesSubSet(const mvsUtils::MultiViewParams& mp,
                                 const std::vector<size_t>& atlasIDs,
                                 mvsUtils::ImagesCache<image::Image<image::RGBfColor>>& imageCache,
                                 const bfs::path &outPath,
-                                image::EImageFileType textureFileType = image::EImageFileType::PNG);
+                                image::EImageFileType textureFileType = image::EImageFileType::PNG,
+                                mvsUtils::EFileType imageType = mvsUtils::EFileType::none);
 
     void generateNormalAndHeightMaps(const mvsUtils::MultiViewParams& mp, const Mesh& denseMesh,
                                      const bfs::path& outPath, const mesh::BumpMappingParams& bumpMappingParams);
@@ -220,7 +222,7 @@ public:
 
     ///Fill holes and write texture files for the given texture atlas
     void writeTexture(AccuImage& atlasTexture, const std::size_t atlasID, const bfs::path& outPath,
-                      image::EImageFileType textureFileType, const int level);
+                      image::EImageFileType textureFileType, const int level, mvsUtils::EFileType imageType = mvsUtils::EFileType::none);
 
     /// Save textured mesh as an OBJ + MTL file
     void saveAs(const bfs::path& dir, const std::string& basename,
