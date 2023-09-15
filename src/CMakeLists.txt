@@ -64,7 +64,6 @@ trilean_option(ALICEVISION_USE_APRILTAG "Enable AprilTag markers" AUTO)
 trilean_option(ALICEVISION_USE_POPSIFT "Enable GPU SIFT implementation" AUTO)
 trilean_option(ALICEVISION_USE_OPENGV "Enable use of OpenGV algorithms" AUTO)
 trilean_option(ALICEVISION_USE_ALEMBIC "Enable Alembic I/O" AUTO)
-trilean_option(ALICEVISION_USE_UNCERTAINTYTE "Enable Uncertainty computation" AUTO)
 trilean_option(ALICEVISION_USE_ONNX "Enable ONNX Runtime" AUTO)
 trilean_option(ALICEVISION_USE_CUDA "Enable CUDA" ON)
 trilean_option(ALICEVISION_USE_OPENCV "Enable use of OpenCV algorithms" OFF)
@@ -604,30 +603,6 @@ if(ALICEVISION_BUILD_SFM)
 
 endif()
 
-# ==============================================================================
-# UncertaintyTE
-# ==============================================================================
-# - optional, only external and enabled only if ALICEVISION_USE_UNCERTAINTYTE is ON
-# ==============================================================================
-set(ALICEVISION_HAVE_UNCERTAINTYTE 0)
-
-if(ALICEVISION_BUILD_SFM)
-  if(NOT ALICEVISION_USE_UNCERTAINTYTE STREQUAL "OFF")
-    find_package(UncertaintyTE)
-
-    if(UNCERTAINTYTE_FOUND)
-      set(ALICEVISION_HAVE_UNCERTAINTYTE 1)
-      message(STATUS "UncertaintyTE found.")
-    elseif(ALICEVISION_USE_UNCERTAINTYTE STREQUAL "ON")
-      message(SEND_ERROR "Failed to find UncertaintyTE.")
-    endif()
-  endif()
-
-  if(ALICEVISION_HAVE_UNCERTAINTYTE)
-    include_directories(${UNCERTAINTYTE_INCLUDE_DIR})
-    link_directories(${UNCERTAINTYTE_LIBRARY_DIR})
-  endif()
-endif()
 
 # ==============================================================================
 # ZLIB
@@ -839,8 +814,6 @@ set(ALICEVISION_INCLUDE_DIRS
         ${LEMON_INCLUDE_DIRS}
         ${EIGEN3_INCLUDE_DIRS}
         ${CERES_INCLUDE_DIRS}
-        ${UNCERTAINTYTE_INCLUDE_DIRS}
-        ${MAGMA_INCLUDE_DIRS}
         ${FLANN_INCLUDE_DIRS}
         ${LP_INCLUDE_DIRS}
         ${COINUTILS_INCLUDE_DIRS}
@@ -941,7 +914,6 @@ message("** Build AliceVision tests: " ${ALICEVISION_BUILD_TESTS})
 message("** Build AliceVision documentation: " ${ALICEVISION_HAVE_DOC})
 message("** Build AliceVision samples programs: " ${ALICEVISION_BUILD_EXAMPLES})
 message("** Build AliceVision+OpenCV samples programs: " ${ALICEVISION_HAVE_OPENCV})
-message("** Build UncertaintyTE: " ${ALICEVISION_HAVE_UNCERTAINTYTE})
 message("** Build MeshSDFilter: " ${ALICEVISION_HAVE_MESHSDFILTER})
 message("** Build Alembic exporter: " ${ALICEVISION_HAVE_ALEMBIC})
 message("** Enable code coverage generation: " ${ALICEVISION_BUILD_COVERAGE})
