@@ -7,12 +7,16 @@
 #pragma once
 
 #include <aliceVision/track/Track.hpp>
+#include <aliceVision/feature/FeaturesPerView.hpp>
 
 #include <memory>
 
 
 namespace aliceVision {
 namespace track {
+
+// IndexedFeaturePair is: pair<viewId, keypointId>
+using IndexedFeaturePair = std::pair<std::size_t, KeypointId>;
 
 struct TracksBuilderData;
 
@@ -55,6 +59,14 @@ public:
     void build(const PairwiseMatches& pairwiseMatches);
 
     /**
+     * @brief Build tracks for a given series of pairWise matches, 
+     * also merge tracks based on duplicate features
+     * @param[in] pairwiseMatches PairWise matches
+     * @param[in] featuresPerView Map Features Per View, used to get duplicate features
+     */
+    void build(const PairwiseMatches& pairwiseMatches, const feature::MapFeaturesPerView& featuresPerView);
+
+    /**
     * @brief Remove bad tracks (too short or track with ids collision)
     * @param[in] clearForks: remove tracks with multiple observation in a single image
     * @param[in] minTrackLength: minimal number of observations to keep the track
@@ -83,6 +95,7 @@ public:
 
 private:
     std::unique_ptr<TracksBuilderData> _d;
+    stl::flat_map<IndexedFeaturePair, size_t> _duplicateFeaturesMap;
 };
 
 } // namespace track

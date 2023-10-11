@@ -108,6 +108,8 @@ public:
   {
     return _data;
   }
+
+  const feature::MapFeaturesPerView& getData() const { return _data; }
   
 private:
   
