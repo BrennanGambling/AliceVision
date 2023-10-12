@@ -63,6 +63,7 @@ public:
     EFeatureConstraint featureConstraint = EFeatureConstraint::BASIC;
     float minAngleInitialPair = 5.0f;
     float maxAngleInitialPair = 40.0f;
+    bool mergeTracks = false;
     bool filterTrackForks = true;
     robustEstimation::ERobustEstimator localizerEstimator = robustEstimation::ERobustEstimator::ACRANSAC;
     double localizerEstimatorError = std::numeric_limits<double>::infinity();

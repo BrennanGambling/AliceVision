@@ -175,6 +175,9 @@ int aliceVision_main(int argc, char **argv)
     ("useOnlyMatchesFromInputFolder", po::value<bool>(&useOnlyMatchesFromInputFolder)->default_value(useOnlyMatchesFromInputFolder),
       "Use only matches from the input matchesFolder parameter.\n"
       "Matches folders previously added to the SfMData file will be ignored.")
+    ("mergeTracks", po::value<bool>(&sfmParams.mergeTracks)->default_value(sfmParams.mergeTracks),
+      "Enable/Disable the track merging. The merging between two tracks is made when they have duplicate features coming from the same original feature "
+      "(same describer type, same 2D position in the same view, same scale, but different rotations and different feature id).\n")
     ("filterTrackForks", po::value<bool>(&sfmParams.filterTrackForks)->default_value(sfmParams.filterTrackForks),
       "Enable/Disable the track forks removal. A track contains a fork when incoherent matches leads to multiple features in the same image for a single track.\n")
     ("useRigConstraint", po::value<bool>(&sfmParams.rig.useRigConstraint)->default_value(sfmParams.rig.useRigConstraint),
