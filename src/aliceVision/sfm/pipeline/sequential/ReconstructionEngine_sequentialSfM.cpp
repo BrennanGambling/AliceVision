@@ -1552,7 +1552,7 @@ bool ReconstructionEngine_sequentialSfM::computeResection(const IndexT viewId, R
   getFeatureIdInViewPerTrack(_map_tracks,
                                              resectionData.tracksId,
                                              viewId,
-                                             &resectionData.featuresId);
+                                             resectionData.featuresId);
   
   // Localize the image inside the SfM reconstruction
   resectionData.pt2D.resize(2, resectionData.tracksId.size());

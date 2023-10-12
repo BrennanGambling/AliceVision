@@ -110,7 +110,7 @@ void getTracksIdVector(const TracksMap& tracks,
 bool getFeatureIdInViewPerTrack(const TracksMap& allTracks,
                                        const std::set<std::size_t>& trackIds,
                                        IndexT viewId,
-                                       std::vector<FeatureId>* out_featId);
+                                       std::vector<FeatureId>& out_featId);
 
 
 struct FunctorMapFirstEqual
